@@ -11,6 +11,8 @@ function Header() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [isFormVisible, setIsFormVisible] = useState(false);
+
+
   
     // Register function
     const handleSubmitRegister = async (e) => {
@@ -33,7 +35,7 @@ function Header() {
         } else {
           const errorData = await response.text();
           setError(errorData);
-          setSuccess(''); // Clear any previous success messages
+          setSuccess('');
         }
       } catch (error) {
         console.error('Error during registration:', error);
@@ -44,49 +46,68 @@ function Header() {
 
     // LOGIN FUNCTION
 
-    const handleSubmitLogin = async (e) => {
-        e.preventDefault();
-    
-        try {
-            const response = await fetch('http://localhost:8001/api/login', {
+   const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+
+    console.log('Attempting to log in with:', { email, password });
+
+    try {
+        const response = await fetch('http://localhost:8001/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include', // Inclure les cookies
             body: JSON.stringify({ email, password }),
-            });
-    
-            if (response.ok) {
-            setIsAuthenticated(true);
+        });
+
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+
+        if (response.ok) {
+            setSuccess('Login successful');
             setError('');
-            // Optionally, redirect to login or another page
+            setIsAuthenticated(true);
             window.location.href = '/';
-            } else {
+        } else {
             const errorData = await response.text();
+            console.log('Error response:', errorData);
             setError(errorData);
-            }
-        } catch (error) {
-            console.error('Error during login:', error);
-            setError('An error occurred. Please try again.');
         }
-        };
-
-
-
-    // Check if user is authenticated
-  const checkAuthStatus = async () => {
-    try {
-      const response = await fetch('http://localhost:8001/api/checkauth', { method: 'GET' });
-      if (response.ok) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
     } catch (error) {
-      console.error('Error checking auth status:', error);
-      setIsAuthenticated(false);
+        console.error('Error during login:', error);
+        setError('An error occurred. Please try again.');
     }
-  };
+};
+
+    
+// Check if user is authenticated
+const checkAuthStatus = async () => {
+    try {
+        console.log('Sending request to check authentication');
+        
+        // Inclure credentials pour envoyer les cookies
+        const response = await fetch('http://localhost:8001/api/checkauth', {
+            method: 'GET',
+            credentials: 'include', // Inclure les cookies
+        });
+
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+
+        if (response.ok) {
+            console.log('User is authenticated');
+            setIsAuthenticated(true);
+        } else {
+            console.log('User is not authenticated');
+            setIsAuthenticated(false);
+        }
+    } catch (error) {
+        console.error('Error checking auth status:', error);
+        setIsAuthenticated(false);
+    }
+};
+
 
   useEffect(() => {
     checkAuthStatus();
@@ -96,9 +117,14 @@ function Header() {
   // Logout function
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:8001/api/logout', { method: 'POST' });
+      const response = await fetch('http://localhost:8001/api/logout', 
+        {
+            method: 'POST',
+            credentials: 'include', // Include credentials to send cookies
+        });
       if (response.ok) {
         setIsAuthenticated(false);
+        window.location.href = '/';
       }
     } catch (error) {
       console.error('Error during logout:', error);
@@ -109,8 +135,9 @@ function Header() {
   return (
     <div className="container-header">
       <h1>Zerdee</h1>
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
       <nav>
-       
         {!isAuthenticated ? (
           <>
            <div className='container-nav-header'> 
@@ -118,11 +145,11 @@ function Header() {
            <div className='container-login'>
         <form onSubmit={handleSubmitLogin}> 
         <label htmlFor='email'></label>
-        <input placeholder='Email' type='email' id='email' name='email'required/>
+        <input placeholder='Email' type='email' id='emaillog' name='emaillog'required  onChange={(e) => setEmail(e.target.value)}/>
 
 
         <label htmlFor='password'></label>
-        <input placeholder='Password'type='password' id='password' name='password'required/>
+        <input placeholder='Password'type='password' id='passwordlog' name='passwordlog'required onChange={(e) => setPassword(e.target.value)}/>
 
         <button type='submit'>Login</button>
         </form>
@@ -146,8 +173,6 @@ function Header() {
         <input autoComplete='off' type='password' id='password' name='password'required  value={password} onChange={(e) => setPassword(e.target.value)}  />
 
         <button type='submit'>Register</button>
-        {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">{success}</p>}
         </form>
     </div>
 

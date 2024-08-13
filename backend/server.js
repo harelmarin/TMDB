@@ -10,10 +10,12 @@ require ('dotenv').config();
 
 const app = express();
 app.use(express.json());
+
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }));
+
 app.use(cookieParser()); 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -105,9 +107,9 @@ app.post('/api/login', (req, res) => {
 
             // Envoyer le token dans un cookie HttpOnly
             res.cookie('token', token, {
-                httpOnly: true,  // Cookie non accessible via JavaScript
-                secure: false,    // Cookie envoyé uniquement via HTTPS
-                sameSite: 'Strict' // Cookie envoyé uniquement avec les requêtes "same-site"
+                httpOnly: true,
+                secure: false,    
+                sameSite: 'Strict' 
             });
 
             res.send('Login successful');
@@ -141,6 +143,7 @@ app.get('/api/checkauth', (req, res) => {
     const token = req.cookies.token; // Récupère le token depuis les cookies
 
     if (!token) {
+        console.log('No token found in cookies');
         return res.status(401).send('Not Authenticated');
     }
 
