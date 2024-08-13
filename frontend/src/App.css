@@ -142,4 +142,47 @@ body {
 }
 
 
+/* LOGIN */
+
+.container-login {
+  position: relative;
+  display: inline-block;
+  margin-right: 0.5vw;
+}
+
+
+.container-login form input {
+  width: 100px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #29282D;
+  color: #F2F2F2;
+  border: none;
+  margin: 0;
+  margin-right: 1vw;
+}
+
+.container-login form button {
+  background-color: rgba(134, 45, 236, 0.676);
+  color: #F2F2F2;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: 'Regular';
+  border: none;
+  cursor: pointer;
+}
+
+.container-login form button:hover {
+  background-color: rgba(152, 77, 237, 0.676);
+}
+
+.container-login form input:hover {
+  background-color: #3A393D;
+}
+
+.container-login form input:focus {
+  outline: none;
+  background-color: #3A393D;
+}
 

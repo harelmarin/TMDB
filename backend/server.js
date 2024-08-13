@@ -106,7 +106,7 @@ app.post('/api/login', (req, res) => {
             // Envoyer le token dans un cookie HttpOnly
             res.cookie('token', token, {
                 httpOnly: true,  // Cookie non accessible via JavaScript
-                secure: true,    // Cookie envoyé uniquement via HTTPS
+                secure: false,    // Cookie envoyé uniquement via HTTPS
                 sameSite: 'Strict' // Cookie envoyé uniquement avec les requêtes "same-site"
             });
 
