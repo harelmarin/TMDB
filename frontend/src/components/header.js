@@ -1,14 +1,16 @@
 import '../App.css';
 
 
-function header() {
+function Header() {
   return (
     <div className='container-header'>
             <h1> Zerdee </h1>
+
+            <div> </div>
 
       
     </div>
   );
 }
 
-export default header;
+export default Header;

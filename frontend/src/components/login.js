@@ -1,7 +1,7 @@
 import '../App.css';
 
 
-function login() {
+function Login() {
   return (
     <div className='container-login'>
         <form> 
@@ -20,4 +20,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;

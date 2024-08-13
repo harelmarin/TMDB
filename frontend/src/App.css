@@ -33,6 +33,9 @@ body {
   padding-left: 5vw;
 }
 
+
+
+
 /* Login */
 
 .container-login {
@@ -51,7 +54,7 @@ body {
   justify-content:space-around;
   border-radius: 5px;
   padding: 50px;
-  border: 1px solid #F2F2F2;
+  border: 0.5px solid #F2F2F2;
 }
 
 .container-login form input {
@@ -99,5 +102,12 @@ body {
 
 .container-login form button:hover {
   background-color: #3D3C41;
+}
+
+.error-message {
+  font-family: 'Regular';
+  font-size: 15px;
+  color: #F2F2F2;
+  margin-top: 10px;
 }
 
