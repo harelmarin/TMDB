@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 
+import Human from '../assets/img/human.svg';
+
 
 
 function Header() {
@@ -180,8 +182,17 @@ const checkAuthStatus = async () => {
           </>
         ) : (
           <>
-            <a href="/profile">My Account</a>
+      
+            <div className='container-profile'>
+            <img src={Human} alt='human' />
+            
+
+            <div className='container-dashboard'>
+            <button onClick={() => window.location.href = '/dashboard'}>Dashboard</button>
             <button onClick={handleLogout}>Logout</button>
+            </div>
+            </div>
+           
           </>
         )}
        
