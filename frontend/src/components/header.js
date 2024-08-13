@@ -1,14 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 
-import Register from './register';
-import Login from './login';
+
 
 function Header() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [showLogin, setShowLogin] = useState(false);
-    const [showRegister, setShowRegister] = useState(false);
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [isFormVisible, setIsFormVisible] = useState(false);
+  
+    // Register function
+    const handleSubmitRegister = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await fetch('http://localhost:8001/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, password }),
+        });
+  
+        if (response.ok) {
+          setSuccess('Registration successful');
+          setError('');
+          // Optionally, redirect to login or another page
+          window.location.href = '/';
+        } else {
+          const errorData = await response.text();
+          setError(errorData);
+          setSuccess(''); // Clear any previous success messages
+        }
+      } catch (error) {
+        console.error('Error during registration:', error);
+        setError('An error occurred. Please try again.');
+        setSuccess(''); // Clear any previous success messages
+      }
+    };
 
+
+
+
+
+
+    // Check if user is authenticated
   const checkAuthStatus = async () => {
     try {
       const response = await fetch('http://localhost:8001/api/checkauth', { method: 'GET' });
@@ -27,6 +66,8 @@ function Header() {
     checkAuthStatus();
   }, []);
 
+
+  // Logout function
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:8001/api/logout', { method: 'POST' });
@@ -38,20 +79,35 @@ function Header() {
     }
   };
 
-
-
-
-
+  // RETURN
   return (
     <div className="container-header">
       <h1>Zerdee</h1>
       <nav>
+       
         {!isAuthenticated ? (
           <>
-            <button onClick={() => setShowLogin(!showLogin)}>Login</button>
-            <button onClick={() => setShowRegister(!showRegister)}>Register</button>
-            {showLogin && <Login onLoginSuccess={checkAuthStatus} />}
-            {showRegister && <Register onRegisterSuccess={checkAuthStatus} />}
+           <div className='container-nav-header'> 
+            <button className='register-button'  onClick={() => setIsFormVisible(!isFormVisible)}>Register</button>
+            </div>
+            <div className={`container-register ${isFormVisible ? 'show' : ''}`}>
+            <form onSubmit={handleSubmitRegister}> 
+
+        <label htmlFor='name'>Name</label>
+        <input autoComplete='off' type='text' id='name' name='name' required value={username} onChange={(e) => setUsername(e.target.value)}/>
+
+        <label htmlFor='email'>Email</label>
+        <input autoComplete='off' type='email' id='email' name='email'required  value={email} onChange={(e) => setEmail(e.target.value)}/>
+
+
+        <label htmlFor='password'>Password</label>
+        <input autoComplete='off' type='password' id='password' name='password'required  value={password} onChange={(e) => setPassword(e.target.value)}  />
+
+        <button type='submit'>Register</button>
+        {error && <p className="error-message">{error}</p>}
+        {success && <p className="success-message">{success}</p>}
+        </form>
+    </div>
           </>
         ) : (
           <>
@@ -59,6 +115,7 @@ function Header() {
             <button onClick={handleLogout}>Logout</button>
           </>
         )}
+       
       </nav>
     </div>
   );
