@@ -14,23 +14,27 @@
 }
 
 body {
+  width: 100%;
   background-color: #100D14;
 }
 
 /* Header */
 
 .container-header {
-  width: 100%;
+  width: 90%;
   height: 10vh;
-
+  display: flex;
+  flex-direction: row;
+  padding-top: 5vh;
+  padding-left: 5vw;
+  justify-content: space-between;
+  padding-right: 5vw;
 }
 
 .container-header h1 {
   font-family: 'Bold';
   font-size: 30px;
   color: #F2F2F2;
-  padding-top: 5vh;
-  padding-left: 5vw;
 }
 
 
