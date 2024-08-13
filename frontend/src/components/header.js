@@ -122,7 +122,7 @@ const checkAuthStatus = async () => {
       const response = await fetch('http://localhost:8001/api/logout', 
         {
             method: 'POST',
-            credentials: 'include', // Include credentials to send cookies
+            credentials: 'include',
         });
       if (response.ok) {
         setIsAuthenticated(false);
@@ -135,13 +135,15 @@ const checkAuthStatus = async () => {
 
   // RETURN
   return (
+    <div className="header">
     <div className="container-header">
-      <h1>Zerdee</h1>
+     <a href='/'><h1>Zerdee</h1></a> 
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
       <nav>
         {!isAuthenticated ? (
           <>
+        
            <div className='container-nav-header'> 
 
            <div className='container-login'>
@@ -197,6 +199,7 @@ const checkAuthStatus = async () => {
         )}
        
       </nav>
+    </div>
     </div>
   );
 }

@@ -19,7 +19,6 @@ body {
 }
 
 /* Header */
-
 .container-header {
   width: 90%;
   height: 10vh;
@@ -34,6 +33,12 @@ body {
   font-family: 'Bold';
   font-size: 30px;
   color: #F2F2F2;
+}
+
+.container-header a {
+  text-decoration: none;
+  color: #F2F2F2;
+  font-size: 30px;
 }
 
 .error-message {
