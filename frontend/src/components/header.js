@@ -137,7 +137,7 @@ const checkAuthStatus = async () => {
   return (
     <div className="header">
     <div className="container-header">
-     <a href='/'><h1>Zerdee</h1></a> 
+     <a href='/'><h1>TMDB</h1></a> 
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
       <nav>

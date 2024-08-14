@@ -143,7 +143,6 @@ app.get('/api/checkauth', (req, res) => {
     const token = req.cookies.token; // Récupère le token depuis les cookies
 
     if (!token) {
-        console.log('No token found in cookies');
         return res.status(401).send('Not Authenticated');
     }
 
@@ -157,6 +156,40 @@ app.get('/api/checkauth', (req, res) => {
 
         // Si le token est valide, l'utilisateur est authentifié
         res.status(200).send('Authenticated');
+    });
+});
+
+// Get le nom de l'utilisateur
+app.get('/api/getusername', (req, res) => {
+    const token = req.cookies.token; // Récupère le token depuis les cookies
+
+    if (!token) {
+        return res.status(401).send('Not Authenticated');
+    }
+
+    // Vérification du token
+    jwt.verify(token, process.env.SESSION_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error verifying token:', err);
+            return res.status(401).send('Not Authenticated');
+        }
+
+        // Utiliser l'ID de l'utilisateur stocké dans le token pour récupérer le nom d'utilisateur depuis la base de données
+        const userId = decoded.id;
+
+        db.query('SELECT username FROM users WHERE id = ?', [userId], (err, results) => {
+            if (err) {
+                console.error('Error fetching username:', err);
+                return res.status(500).send('Internal server error');
+            }
+
+            if (results.length === 0) {
+                return res.status(404).send('User not found');
+            }
+
+            // Envoyer le nom d'utilisateur
+            res.status(200).send({ username: results[0].username });
+        });
     });
 });
 
