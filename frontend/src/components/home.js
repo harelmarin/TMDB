@@ -47,7 +47,8 @@ function Home() {
   }, []);
 
   return (
-    <div className={`container-home background`}>
+    <div className='app-home'>
+    <div className="container-home background">
       <div className='container-home-title'>
        {isAuthenticated ? (
         <h2>Welcome Back, <a href='/dashboard'>{username}</a>! </h2>
@@ -59,6 +60,11 @@ function Home() {
       )}
       </div>
     </div>
+    <div className='container-home-movies'>
+     <h3> Latest Movies</h3>
+     <span className='border'> </span> 
+     </div>
+     </div>
   );
 }
 
