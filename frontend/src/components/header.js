@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
+import searchIcon from '../assets/img/search.svg';
 
 import Human from '../assets/img/human.svg';
 
@@ -140,12 +141,21 @@ const checkAuthStatus = async () => {
      <a href='/'><h1>TMDB</h1></a> 
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
+
+
+      <form className='form-search'> 
+              <input className='input-search' type='text' placeholder='Search for a movie' /> 
+              <img src={searchIcon} alt="Search Icon" className='search-icon' />
+          </form>
+
+
       <nav>
+
         {!isAuthenticated ? (
           <>
         
            <div className='container-nav-header'> 
-
+           
            <div className='container-login'>
         <form onSubmit={handleSubmitLogin}> 
         <label htmlFor='email'></label>
@@ -184,7 +194,8 @@ const checkAuthStatus = async () => {
           </>
         ) : (
           <>
-      
+
+
             <div className='container-profile'>
             <img src={Human} alt='human' />
             

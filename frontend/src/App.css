@@ -21,10 +21,12 @@ body {
 /* Header */
 .container-header {
   width: 90%;
-  height: 10vh;
+  height: 8vh;
   display: flex;
+  align-items: center;
   flex-direction: row;
-  padding-top: 5vh;
+  padding-top: 2vh;
+  padding-bottom: 1vh;
   margin-left: 5vw;
   justify-content: space-between;
   border-bottom: 0.5px solid #ccc;
@@ -60,6 +62,52 @@ body {
   color: #F2F2F2;
   margin-top: 1vh;
 }
+
+
+/* INPUT */
+
+.form-search {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-search {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #29282D;
+  color: #F2F2F2;
+  border: none;
+  font-family: 'Regular';
+  position: relative;
+}
+
+.input-search:hover {
+  background-color: #3A393D;
+}
+
+.input-search:focus {
+  outline: none;
+  background-color: #3A393D;
+}
+
+.search-icon {
+  position: absolute;
+  top: 4.8vh;
+  transform: translateX(910%); 
+  width: 20px; 
+  height: 20px; 
+  pointer-events: none; 
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.search-icon:hover {
+  opacity: 1;
+
+}
+
+
 
 
 
@@ -246,7 +294,7 @@ body {
   border: 0.5px solid #F2F2F2; 
   transition: opacity 0.3s ease-in-out; 
   position: absolute;
-  top: 9.8vh;
+  top: 8vh;
   right: 2.2vw;
   border-radius: 5px;
   padding: 10px;
