@@ -47,13 +47,14 @@ function Home() {
   }, []);
 
   return (
-    <div className='container-home'>
+    <div className={`container-home background`}>
       <div className='container-home-title'>
        {isAuthenticated ? (
         <h2>Welcome Back, <a href='/dashboard'>{username}</a>! </h2>
       ) : (
         <h2>Track films you’ve watched.
-        Save those you want to see. </h2>
+        Save those you want to see. 
+        <span className='violet'> Login </span> to begin !</h2>
         
       )}
       </div>

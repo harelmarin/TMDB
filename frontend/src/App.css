@@ -350,6 +350,28 @@ body {
   
 }
 
+.background {
+  border-radius: 5px;
+  margin-top: 4vh;
+  background-image: url(../src/assets/img/test.jpg);
+  background-size: cover;
+  background-position: center;
+  width: 90%;
+  height: 70vh;
+  z-index: -1;
+
+}
+
+.background h2 {
+  text-align: center;
+  line-height: 1.5;
+  padding-bottom: 50vh;
+
+}
+
+.violet {
+  color: rgba(152, 77, 237, 0.676)
+}
 .container-home-title {
   font-family: 'Regular';
   font-size: 15px;
@@ -369,4 +391,5 @@ body {
 
 .container-home-title a:hover {
   opacity: 1;
+  
 }
