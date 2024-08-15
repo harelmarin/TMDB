@@ -193,6 +193,24 @@ app.get('/api/getusername', (req, res) => {
     });
 });
 
+// GET les films populaires
+
+app.get('/api/popularmovies', async (req, res) => {
+
+        const apiKey = process.env.TMDB_API_KEY;
+        console.log("apik key :", apiKey);
+        const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-EN&page=1`;
+      
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          res.json(data);
+        } catch (error) {
+          console.error('Error fetching popular movies:', error);
+          res.status(500).json({ error: 'Failed to fetch popular movies' });
+        }
+      })
+
 
 
 // Lancement du serveur

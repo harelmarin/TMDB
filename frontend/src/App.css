@@ -29,7 +29,6 @@ body {
   padding-bottom: 1vh;
   margin-left: 5vw;
   justify-content: space-between;
-  border-bottom: 0.5px solid #ccc;
 
 }
 
@@ -394,7 +393,7 @@ body {
 }
 
 .container-home-movies {
-  margin-left: 5vw;
+  padding-left: 5vw;
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -413,3 +412,32 @@ body {
   margin-top: 0.5vh;
   opacity: 0.5;
 }
+
+/* POPULAR MOVIES */
+
+.container-popular-movies {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1vw;
+  padding-top: 2vh;
+  width: 100%;
+  overflow-x: scroll;
+  padding-bottom: 5vh;
+}
+
+.container-popular-movies img {
+  width: 100px;
+  height: 150px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: box-shadow 0.3s ease;
+ 
+}
+
+.container-popular-movies img:hover {
+  opacity: 1;
+  box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
+}
+
