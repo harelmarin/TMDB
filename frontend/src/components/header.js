@@ -186,7 +186,6 @@ const checkAuthStatus = async () => {
       <form className='form-search'> 
               <input className='input-search' type='text' placeholder='Search for a movie' value={searchQuery} onChange={handleSearchChange}/> 
               <img src={searchIcon} alt="Search Icon" className='search-icon' />
-               {/* Display Search Results */}
           {searchResults.length > 0 && (
                     <div className="container-search-results">
                         {searchResults.map((movie) => (

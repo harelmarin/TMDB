@@ -453,7 +453,7 @@ body {
     padding: 10px;
     overflow-y: scroll;
     border-radius: 5px;
-    background-color: #3A393D;
+    background-color: #29282D;
 }
 
 .search-result-item {
@@ -462,6 +462,12 @@ body {
   padding: 5px;
   border-bottom: 0.5px solid #ccc;
   cursor: pointer;
+  opacity: 0.9;
+}
+
+.search-result-item:hover {
+  opacity: 1;
+  background-color: #3A393D;
 }
 
 .container-column {
