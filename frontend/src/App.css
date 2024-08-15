@@ -441,3 +441,48 @@ body {
   box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
 }
 
+/* SEARCH MOVIES */
+
+.container-search-results {
+    position: absolute;
+    top: 9vh;
+    width: 190px;
+    border: none;
+    z-index: 1000;
+    max-height: 200px;
+    padding: 10px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    background-color: #3A393D;
+}
+
+.search-result-item {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  border-bottom: 0.5px solid #ccc;
+  cursor: pointer;
+}
+
+.container-column {
+  display: flex;
+  flex-direction: column;
+}
+.search-result-item img{
+  width: 50px;
+  height: 75px;
+  padding-right: 0.5vw;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+}
+
+.search-result-item p {
+  font-family: 'Regular';
+  font-size: 12px;
+  color: #F2F2F2;
+  margin-top: 0.3vh;
+}
+
+
+
+

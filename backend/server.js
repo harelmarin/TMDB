@@ -211,6 +211,25 @@ app.get('/api/popularmovies', async (req, res) => {
         }
       })
 
+// GET recherche de films
+
+    app.get('/api/searchmovies', async (req, res) => {
+    const { query } = req.query;
+    const apiKey = process.env.TMDB_API_KEY;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-EN&query=${query}&page=1&include_adult=false&sort_by=popularity.desc`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    }
+    catch (error) {
+        console.error('Error fetching search results:', error);
+        res.status(500).json({ error: 'Failed to fetch search results' });
+    }
+});
+
+
 
 
 // Lancement du serveur

@@ -15,6 +15,10 @@ function Header() {
     const [success, setSuccess] = useState('');
     const [isFormVisible, setIsFormVisible] = useState(false);
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+
 
   
     // Register function
@@ -111,10 +115,10 @@ const checkAuthStatus = async () => {
     }
 };
 
-
   useEffect(() => {
     checkAuthStatus();
   }, []);
+  
 
 
   // Logout function
@@ -134,6 +138,42 @@ const checkAuthStatus = async () => {
     }
   };
 
+
+  // Handle Search Query Change
+  const handleSearchChange = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+
+    if (query.trim() === '') {
+        setSearchResults([]);
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8001/api/searchmovies?query=${query}`);
+        if (response.ok) {
+            const data = await response.json();
+            const filteredResults = data.results.filter(movie => movie.poster_path);
+            setSearchResults(filteredResults);
+        } else {
+            console.error('Failed to fetch search results');
+        }
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+    }
+};
+  
+
+
+
+
+
+
+
+
+
+
+
   // RETURN
   return (
     <div className="header">
@@ -144,9 +184,27 @@ const checkAuthStatus = async () => {
 
 
       <form className='form-search'> 
-              <input className='input-search' type='text' placeholder='Search for a movie' /> 
+              <input className='input-search' type='text' placeholder='Search for a movie' value={searchQuery} onChange={handleSearchChange}/> 
               <img src={searchIcon} alt="Search Icon" className='search-icon' />
+               {/* Display Search Results */}
+          {searchResults.length > 0 && (
+                    <div className="container-search-results">
+                        {searchResults.map((movie) => (
+                            <div key={movie.id} className="search-result-item">
+                              
+                                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+                                <div className='container-column'>
+                                <p>{movie.title}</p>
+                                <p>{movie.release_date}</p>
+                                </div>
+                                
+                            </div>
+                        ))}
+                    </div>
+                )}
           </form>
+
+         
 
 
       <nav>
