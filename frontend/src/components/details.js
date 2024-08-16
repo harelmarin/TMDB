@@ -83,7 +83,8 @@ function Details() {
                         <div className='overview'>
                         <h3>{movieDetails.overview}</h3>
                         </div>
-                        <p>Release date: {movieDetails.release_date}</p>
+                        <p>{movieDetails.runtime} min</p>
+                        <p>Release : {movieDetails.release_date}</p>
                         <h4> <span className='violet'>{movieDetails.vote_average} </span> /  10 </h4>
                         </div>
                     </div>

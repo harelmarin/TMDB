@@ -533,7 +533,6 @@ flex-direction: row;
 .movie-details-info p {
   font-family: 'Regular';
   font-size: 15px;
-  margin-top: 1vh;
 }
 
 .movie-details-info h4 {
@@ -584,7 +583,7 @@ flex-direction: row;
 }
 
 .overview {
-  max-height: 160px;
+  max-height: 150px;
   overflow-y: scroll;
   margin-bottom: 2vh;
 }
