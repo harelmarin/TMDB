@@ -230,7 +230,22 @@ app.get('/api/popularmovies', async (req, res) => {
 });
 
 
+// GET détails d'un film
 
+app.get('/api/moviedetails/:id', async (req, res) => {
+    const { id } = req.params;
+    const apiKey = process.env.TMDB_API_KEY;
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-EN`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching movie details:', error);
+        res.status(500).json({ error: 'Failed to fetch movie details' });
+    }
+});
 
 // Lancement du serveur
 app.listen(8001, () => {

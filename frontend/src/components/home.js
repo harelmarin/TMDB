@@ -1,5 +1,6 @@
 import '../App.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 
   
@@ -85,7 +86,9 @@ function Home() {
       {Array.isArray(popularMovies) && popularMovies.length > 0 ? (
       popularMovies.map(movie => (
     <div key={movie.id} className='movie-item'>
+      <Link to={`/details?id=${movie.id}`}>
       <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+      </Link>
     </div>
   ))
 ) : (

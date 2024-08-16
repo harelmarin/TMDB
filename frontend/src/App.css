@@ -490,5 +490,49 @@ body {
 }
 
 
+/* DETAILS */
 
+.app-details {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10vh;
+  color: #F2F2F2;
+}
+
+.movie-details {
+ display: flex;
+flex-direction: row;
+margin-left: 15vw;
+}
+
+.movie-details img {
+  width: 200px;
+  height: 300px;
+  border-radius: 5px;
+}
+
+.movie-details-info {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2vw;
+  
+}
+
+.movie-details-info h2 {
+  font-family: 'Bold';
+  font-size: 30px;
+  margin-bottom: 3vh;
+}
+
+.movie-details-info h3 {
+  font-family: 'Regular';
+  font-size: 18px;
+}
+
+.movie-details-info p {
+  font-family: 'Regular';
+  font-size: 15px;
+  margin-top: 1vh;
+}
 
