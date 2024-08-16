@@ -80,9 +80,11 @@ function Details() {
                         <img src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`} alt={movieDetails.title} />
                         <div className='movie-details-info'>
                         <h2>{movieDetails.title}</h2>
+                        <div className='overview'>
                         <h3>{movieDetails.overview}</h3>
+                        </div>
                         <p>Release date: {movieDetails.release_date}</p>
-                        <p>Rating : {movieDetails.vote_average}</p>
+                        <h4> <span className='violet'>{movieDetails.vote_average} </span> /  10 </h4>
                         </div>
                     </div>
             ) : (

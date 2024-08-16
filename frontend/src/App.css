@@ -536,6 +536,12 @@ flex-direction: row;
   margin-top: 1vh;
 }
 
+.movie-details-info h4 {
+  font-family: 'Bold';
+  font-size: 15px;
+  margin-top: 1vh;
+}
+
 .container-similar-movies {
   display: flex;
   flex-direction: row;
@@ -577,5 +583,10 @@ flex-direction: row;
   margin-top: 5vh;
 }
 
+.overview {
+  max-height: 160px;
+  overflow-y: scroll;
+  margin-bottom: 2vh;
+}
 
 
