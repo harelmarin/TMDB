@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
+
 import searchIcon from '../assets/img/search.svg';
+
 
 import Human from '../assets/img/human.svg';
 
@@ -18,6 +21,7 @@ function Header() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
+    const navigate = useNavigate();
 
 
   
@@ -163,12 +167,11 @@ const checkAuthStatus = async () => {
     }
 };
   
-
-
-
-
-
-
+   // Fonction pour gérer le clic sur la recherche 
+   const handleMovieClick = (movieId) => {
+    navigate(`/details?id=${movieId}`);
+    window.location.reload(); // Forcer le rechargement de la page
+};
 
 
 
@@ -189,15 +192,19 @@ const checkAuthStatus = async () => {
           {searchResults.length > 0 && (
                     <div className="container-search-results">
                         {searchResults.map((movie) => (
-                            <div key={movie.id} className="search-result-item">
-                              
+                           
+                            <div key={movie.id} className="search-result-item"  onClick={() => handleMovieClick(movie.id)}>
+                                
                                 <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
                                 <div className='container-column'>
                                 <p>{movie.title}</p>
                                 <p>{movie.release_date}</p>
+
                                 </div>
+                               
                                 
                             </div>
+                         
                         ))}
                     </div>
                 )}

@@ -1,5 +1,10 @@
 import '../App.css';
 
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
+
 import { useState, useEffect } from 'react';
   
 
@@ -7,6 +12,8 @@ function Details() {
 
     const [movieDetails, setmoviedetails] = useState([]);
     const [similarMovies, setSimilarMovies] = useState([]);
+
+    const navigate = useNavigate();
     
 
     // Handle the movie ID from the URL
@@ -53,6 +60,12 @@ function Details() {
         fetchSimilarMovies();
     }, []);
 
+    // Fonction pour gérer le clic sur un film similaire
+    const handleMovieClick = (movieId) => {
+        navigate(`/details?id=${movieId}`);
+        window.location.reload(); // Forcer le rechargement de la page
+    };
+
 
 
 
@@ -82,7 +95,9 @@ function Details() {
 
                 {similarMovies.map(movie => (
                     <div key={movie.id} className='similar-movie-item'>
-                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+                    
+                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title}    onClick={() => handleMovieClick(movie.id)}/>
+                       
                     </div>
                 ))}
                 </div>
