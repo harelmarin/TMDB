@@ -494,15 +494,15 @@ body {
 
 .app-details {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: 10vh;
   color: #F2F2F2;
+  margin-left: 15vw;
 }
 
 .movie-details {
  display: flex;
 flex-direction: row;
-margin-left: 15vw;
 }
 
 .movie-details img {
@@ -535,4 +535,47 @@ margin-left: 15vw;
   font-size: 15px;
   margin-top: 1vh;
 }
+
+.container-similar-movies {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1vw;
+  padding-top: 2vh;
+  width: 70%;
+  overflow-x: scroll;
+  padding-bottom: 5vh;
+}
+
+.container-similar-movies img {
+  width: 100px;
+  height: 150px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: box-shadow 0.3s ease;
+}
+
+.container-similar-movies img:hover {
+  opacity: 1;
+  box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
+}
+
+.soixantedix {
+  width: 70%;
+}
+
+.similar-movie-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-similar {
+  font-family: 'Bold';
+  font-size: 20px;
+  margin-top: 5vh;
+}
+
+
 
