@@ -10,6 +10,10 @@ function Details() {
     const [movieDetails, setmoviedetails] = useState([]);
     const [similarMovies, setSimilarMovies] = useState([]);
     const [director, setDirector] = useState('');
+    const [cast, setCast] = useState([]);
+    const [genres, setGenres] = useState([]);
+    const [country, setCountry] = useState([]);
+    const [originalLanguage, setOriginalLanguage] = useState('');
 
     const navigate = useNavigate();
     
@@ -25,6 +29,9 @@ function Details() {
             if (response.ok) {
                 const data = await response.json();
                 setmoviedetails(data);
+                setGenres(data.genres); 
+                setCountry(data.production_countries);
+                setOriginalLanguage(data.original_language);
                 console.log(data);
             } else {
                 console.error('Failed to fetch movie details');
@@ -68,6 +75,24 @@ function Details() {
     }
 
 
+    // Handle pour le cast du film 
+    const fetchMovieCast = async () => {
+        try {
+            const response = await fetch(`http://localhost:8001/api/moviecredits/${movieId}`);
+            if (response.ok) {
+                const data = await response.json();
+                const cast = data.cast;
+                const filteredCast = cast.filter(person => person.profile_path);
+                setCast(filteredCast);
+            } else {
+                console.error('Failed to fetch movie credits');
+            }
+        } catch (error) {
+            console.error('Error fetching movie credits:', error);
+        }
+    }
+
+    
 
 
 
@@ -76,6 +101,7 @@ function Details() {
         fetchMovieDetails();
         fetchSimilarMovies();
         fetchMovieCredits();
+        fetchMovieCast();
     }, []);
 
     // Fonction pour gérer le clic sur un film similaire
@@ -98,28 +124,65 @@ function Details() {
                         <img src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`} alt={movieDetails.title} />
                         <div className='movie-details-info'>
                         <h2>{movieDetails.title}</h2>
-
-                        
                         <h5>{director}</h5>
                         <p>Release : {movieDetails.release_date}</p>
                         <p>{movieDetails.runtime} min</p>
-                        
                         <h4> <span className='violet'>{movieDetails.vote_average} </span> /  10 </h4>
                         <span className='border'></span>
-
-
                         <div className='overview'>
                         <h3>{movieDetails.overview}</h3>
                         </div>
                         <span className='border'></span>
-                        
                         </div>
+                        
+                        <div className='movie-details-genres'>
+                        <h3> Genres</h3>
+                        <span className='border'></span>
+                        <div className='container-genres'>
+                        {genres.map(genre => (
+                                <div key={genre.id} className='genre-item'>
+                                    <p>{genre.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <h3> Country</h3>
+                        <span className='border'></span>
+                        <div className='container-country'>
+                        {country.map(country => (
+                                <div key={country.id} className='genre-item'>
+                                    <p>{country.name}</p>
+                                </div>
+                            ))}
+                            </div>
+                        <h3> Original Language</h3>
+                        <span className='border'></span>
+                        <div className='container-language'>
+                            <p>{originalLanguage}</p>
+                            </div>
+                        </div> 
+
+
+
                     </div>
             ) : (
                 <p>Loading...</p>
             )}
 
-            <h3 className='title-similar'>Similar Movies</h3>
+                    <div className='movie-details-cast'>
+                        <h3> Cast</h3>
+                        <span className='border'></span>
+                        <div className='container-cast'>
+                        {cast.map(person => (
+                            <div key={person.id} className='cast-item'>
+                                <img src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`} alt={person.name} />            
+                            </div>
+                            
+                        ))}
+                        </div>
+                        </div>
+
+
+            <h3 className='title-similar nomargin'>Similar Movies</h3>
             <span className='border soixantedix'></span>
             <div className='container-similar-movies'>
 
@@ -130,8 +193,11 @@ function Details() {
                        
                     </div>
                 ))}
+                
                 </div>
 
+    
+               
     </div>
   );
 }
