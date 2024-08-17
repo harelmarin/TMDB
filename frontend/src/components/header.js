@@ -166,7 +166,24 @@ const checkAuthStatus = async () => {
         console.error('Error fetching search results:', error);
     }
 };
-  
+
+
+// Handle Search Form Submit
+const handleSearchSubmit = (e) => {
+  e.preventDefault();
+  if (searchQuery.trim()) {
+    navigate(`/search?query=${searchQuery}`);
+    setSearchQuery('');
+    setSearchResults([]);
+  }
+};
+
+// Handle Enter Key Press in Search Input
+const handleKeyPress = (e) => {
+  if (e.key === 'Enter') {
+    handleSearchSubmit(e);
+  }
+};
    // Fonction pour gérer le clic sur la recherche 
    const handleMovieClick = (movieId) => {
     navigate(`/details?id=${movieId}`);
@@ -187,7 +204,7 @@ const checkAuthStatus = async () => {
 
 
       <form className='form-search'> 
-              <input className='input-search' type='text' placeholder='Search for a movie' value={searchQuery} onChange={handleSearchChange}/> 
+              <input className='input-search' type='text' placeholder='Search for a movie' value={searchQuery} onChange={handleSearchChange} onKeyPress={handleKeyPress}/> 
               <img src={searchIcon} alt="Search Icon" className='search-icon' />
           {searchResults.length > 0 && (
                     <div className="container-search-results">

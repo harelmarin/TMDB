@@ -588,4 +588,38 @@ flex-direction: row;
   margin-bottom: 2vh;
 }
 
+/* SEARCH */
+
+.app-search {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  color: #F2F2F2;
+  margin-left: 15vw;
+}
+
+.container-app-search {
+  display: flex;
+  margin-bottom: 5vh;
+  width: 70%;
+  flex-wrap: wrap;
+  gap: 1.3vw;
+  margin-top: 2vh;
+
+}
+
+.search-result img {
+  width: 200px;
+  height: 320px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: box-shadow 0.3s ease;
+  margin-top: 2vh;
+}
+
+.search-result img:hover {
+  opacity: 1;
+  box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
+}
 
