@@ -182,12 +182,13 @@ const handleSearchSubmit = (e) => {
 const handleKeyPress = (e) => {
   if (e.key === 'Enter') {
     handleSearchSubmit(e);
+    window.location.reload();
   }
 };
    // Fonction pour gérer le clic sur la recherche 
    const handleMovieClick = (movieId) => {
     navigate(`/details?id=${movieId}`);
-    window.location.reload(); // Forcer le rechargement de la page
+    window.location.reload();
 };
 
 

@@ -522,7 +522,7 @@ flex-direction: row;
 .movie-details-info h2 {
   font-family: 'Bold';
   font-size: 30px;
-  margin-bottom: 3vh;
+  margin-bottom: 1vh;
 }
 
 .movie-details-info h3 {
@@ -533,12 +533,25 @@ flex-direction: row;
 .movie-details-info p {
   font-family: 'Regular';
   font-size: 15px;
+  margin-top: 1vh;
 }
 
 .movie-details-info h4 {
   font-family: 'Bold';
   font-size: 15px;
   margin-top: 1vh;
+}
+
+.movie-details-info h5 {
+  font-family: 'Bold';
+  font-size: 15px;
+  margin-bottom: 1vh;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.movie-details-info h5:hover {
+  opacity: 1;
 }
 
 .container-similar-movies {
@@ -583,6 +596,7 @@ flex-direction: row;
 }
 
 .overview {
+  margin-top: 2vh;
   max-height: 150px;
   overflow-y: scroll;
   margin-bottom: 2vh;

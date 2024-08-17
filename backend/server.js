@@ -284,6 +284,25 @@ app.get('/api/similarmovies/:id', async (req, res) => {
     }
 });
 
+
+// GET crédits d'un film
+
+app.get('/api/moviecredits/:id', async (req, res) => {
+    const { id } = req.params;
+    const apiKey = process.env.TMDB_API_KEY;
+    const url = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching movie credits:', error);
+        res.status(500).json({ error: 'Failed to fetch movie credits' });
+    }
+}
+);
+
 // Lancement du serveur
 app.listen(8001, () => {
     console.log('Server is running on port 8001');
