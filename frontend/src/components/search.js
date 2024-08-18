@@ -51,7 +51,7 @@ function Search() {
   return (
     <div className='app-search'>
 
-    <h3 className='title-similar'>Search results for {query} </h3>  
+    <h3 className='title-similar'>Search results for <span className='violet'>{query} </span></h3>  
     <span className='border soixantedix'></span>
 
         <div className='container-app-search'>

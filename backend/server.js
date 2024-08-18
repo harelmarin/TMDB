@@ -303,6 +303,39 @@ app.get('/api/moviecredits/:id', async (req, res) => {
 }
 );
 
+
+// Route pour récupérer les films d'un réalisateur
+app.get('/api/director/:id/movies', async (req, res) => {
+    const { id } = req.params;
+    const apiKey = process.env.TMDB_API_KEY;
+    const url = `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${apiKey}&language=en-EN`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data.crew.filter(movie => movie.job === 'Director')); // Filtrer pour ne garder que les films dirigés par ce réalisateur
+    } catch (error) {
+        console.error('Error fetching movies by director:', error);
+        res.status(500).json({ error: 'Failed to fetch movies by director' });
+    }
+});
+
+// Route pour récupérer les détails d'un réalisateur via son id 
+app.get('/api/director/:id', async (req, res) => {
+    const { id } = req.params;
+    const apiKey = process.env.TMDB_API_KEY;
+    const url = `https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}&language=en-EN`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching director details:', error);
+        res.status(500).json({ error: 'Failed to fetch director details' });
+    }
+});
+
 // Lancement du serveur
 app.listen(8001, () => {
     console.log('Server is running on port 8001');

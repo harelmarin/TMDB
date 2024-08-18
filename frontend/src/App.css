@@ -554,6 +554,11 @@ flex-direction: row;
   opacity: 1;
 }
 
+.movie-details-info a {
+  text-decoration: none;
+  color: #F2F2F2;
+}
+
 .container-similar-movies {
   display: flex;
   flex-direction: row;
@@ -712,3 +717,22 @@ flex-direction: row;
   box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
 }
 
+/* REAL */ 
+
+.app-realisateur {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  color: #F2F2F2;
+  margin-left: 15vw;
+}
+
+.container-app-realisateur {
+  display: flex;
+  margin-bottom: 5vh;
+  width: 70%;
+  flex-wrap: wrap;
+  gap: 1.3vw;
+  margin-top: 2vh;
+
+}

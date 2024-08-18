@@ -5,6 +5,7 @@ import Home from './components/home';
 import Header from './components/header';
 import Details from './components/details';
 import Search from './components/search';
+import Real from './components/realisateur';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path='/details' element={<Details/>} />
       <Route path='/search' element={<Search/>} />
+      <Route path='/real' element={<Real/>} />
 
 
       </Routes>

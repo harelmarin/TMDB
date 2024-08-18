@@ -3,6 +3,7 @@ import '../App.css';
 
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
   
 
 function Details() {
@@ -14,7 +15,8 @@ function Details() {
     const [genres, setGenres] = useState([]);
     const [country, setCountry] = useState([]);
     const [originalTitle, setOriginalTitle] = useState('');
-
+    const [directorId, setDirectorId] = useState('');
+    
     const navigate = useNavigate();
     
 
@@ -57,14 +59,25 @@ function Details() {
         }
     }
 
-    // Handle pour le réal du film 
-     const fetchMovieCredits = async () => {
+
+    // HANDLE pour le réalisateur du film
+    const fetchMovieCredits = async () => {
         try {
             const response = await fetch(`http://localhost:8001/api/moviecredits/${movieId}`);
             if (response.ok) {
                 const data = await response.json();
+                
+                // Trouver le réalisateur dans l'équipe
                 const director = data.crew.find(person => person.job === 'Director');
-                setDirector(director ? director.name : 'Unknown Director');
+                
+                if (director) {
+                    // Mettre à jour l'état avec le nom et l'ID du réalisateur
+                    setDirector(director.name);
+                    setDirectorId(director.id);  // Enregistrer l'ID du réalisateur
+                } else {
+                    setDirector('Unknown Director');
+                }
+    
                 console.log(director);
             } else {
                 console.error('Failed to fetch movie credits');
@@ -124,7 +137,11 @@ function Details() {
                         <img src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`} alt={movieDetails.title} />
                         <div className='movie-details-info'>
                         <h2>{movieDetails.title}</h2>
+
+                        <Link to={`/real?id=${directorId}`}>
                         <h5>{director}</h5>
+                        </Link>
+
                         <p>Release : {movieDetails.release_date}</p>
                         <p>{movieDetails.runtime} min</p>
                         <h4> <span className='violet'>{movieDetails.vote_average} </span> /  10 </h4>
