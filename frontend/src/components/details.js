@@ -13,7 +13,7 @@ function Details() {
     const [cast, setCast] = useState([]);
     const [genres, setGenres] = useState([]);
     const [country, setCountry] = useState([]);
-    const [originalLanguage, setOriginalLanguage] = useState('');
+    const [originalTitle, setOriginalTitle] = useState('');
 
     const navigate = useNavigate();
     
@@ -31,7 +31,7 @@ function Details() {
                 setmoviedetails(data);
                 setGenres(data.genres); 
                 setCountry(data.production_countries);
-                setOriginalLanguage(data.original_language);
+                setOriginalTitle(data.original_title);
                 console.log(data);
             } else {
                 console.error('Failed to fetch movie details');
@@ -154,14 +154,14 @@ function Details() {
                                 </div>
                             ))}
                             </div>
-                        <h3> Original Language</h3>
+
+                            <h3> Original Title</h3>
                         <span className='border'></span>
                         <div className='container-language'>
-                            <p>{originalLanguage}</p>
+                            <p>{originalTitle}</p>
                             </div>
+
                         </div> 
-
-
 
                     </div>
             ) : (
