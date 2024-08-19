@@ -336,23 +336,27 @@ app.get('/api/director/:id', async (req, res) => {
     }
 });
 
-
-//Route pour récupérer les films les mieux notés 
+// Route pour récupérer les films les mieux notés
 app.get('/api/topratedmovies', async (req, res) => {
     const apiKey = process.env.TMDB_API_KEY;
-    const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-EN&page=1-3`;
+    const pagesToFetch = [1, 2, 3]; // Pages à récupérer
+    const movies = [];
 
     try {
-        const response = await fetch(url);
-        const data = await response.json();
-        res.json(data);
+        for (const page of pagesToFetch) {
+            const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-EN&page=${page}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            movies.push(...data.results); // Ajoute les films récupérés à la liste
+        }
+
+        res.json(movies); // Retourne tous les films 
     }
     catch (error) {
         console.error('Error fetching top rated movies:', error);
         res.status(500).json({ error: 'Failed to fetch top rated movies' });
     }
 });
-
 
 
 

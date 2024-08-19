@@ -68,7 +68,7 @@ function Home() {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
-          setTopRatedMovies(data.results);
+          setTopRatedMovies(data);
         } else {
           console.error('Failed to fetch top rated movies');
           console.log(response);

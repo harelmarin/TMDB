@@ -446,7 +446,7 @@ body {
 .container-top-movies {
   display: flex;
   flex-direction: row;
-  gap: 1vw;
+  gap: 1.2vw;
   padding-top: 2vh;
   width: 100%;
   flex-wrap: wrap;
@@ -454,8 +454,8 @@ body {
 }
 
 .container-top-movies img {
-  width: 100px;
-  height: 150px;
+  width: 170px;
+  height: 250px;
   border-radius: 5px;
   cursor: pointer;
   opacity: 0.9;
