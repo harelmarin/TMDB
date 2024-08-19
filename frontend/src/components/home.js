@@ -11,6 +11,7 @@ function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [popularMovies, setPopularMovies] = useState([]);
+  const [topratedMovies, setTopRatedMovies] = useState([]);
 
 
   useEffect(() => {
@@ -60,9 +61,28 @@ function Home() {
       }
     };
 
+    // Get top rated movies 
+    const fetchTopRatedMovies = async () => {
+      try {
+        const response = await fetch(`http://localhost:8001/api/topratedmovies`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setTopRatedMovies(data.results);
+        } else {
+          console.error('Failed to fetch top rated movies');
+          console.log(response);
+        }
+      } catch (error) {
+        console.error('Error fetching top rated movies:', error);
+      }
+    }
+
+
 
     checkAuthStatus();
     fetchPopularMovies();
+    fetchTopRatedMovies();
   }, []);
 
   return (
@@ -98,8 +118,22 @@ function Home() {
 
 
       </div>
-
+      <h3> Top Rated Movies</h3>
+      <span className='border'> </span>
+      <div className='container-top-movies'>
+      {Array.isArray(topratedMovies) && topratedMovies.length > 0 ? (
+      topratedMovies.map(topmovie => (
+    <div key={topmovie.id} className='movie-item'>
+      <Link to={`/details?id=${topmovie.id}`}>
+      <img src={`https://image.tmdb.org/t/p/w500${topmovie.poster_path}`} alt={topmovie.title} />
+      </Link>
      </div>
+  ))
+) : (
+  <p>No movies available</p>
+)}
+      </div>
+      </div>
 
 
 

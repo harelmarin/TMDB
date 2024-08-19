@@ -336,6 +336,27 @@ app.get('/api/director/:id', async (req, res) => {
     }
 });
 
+
+//Route pour récupérer les films les mieux notés 
+app.get('/api/topratedmovies', async (req, res) => {
+    const apiKey = process.env.TMDB_API_KEY;
+    const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-EN&page=1-3`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    }
+    catch (error) {
+        console.error('Error fetching top rated movies:', error);
+        res.status(500).json({ error: 'Failed to fetch top rated movies' });
+    }
+});
+
+
+
+
+
 // Lancement du serveur
 app.listen(8001, () => {
     console.log('Server is running on port 8001');

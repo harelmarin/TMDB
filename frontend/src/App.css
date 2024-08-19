@@ -29,7 +29,7 @@ body {
   padding-bottom: 1vh;
   margin-left: 5vw;
   justify-content: space-between;
-
+  border-bottom: 0.5px solid #F2F2F2;
 }
 
 .container-header h1 {
@@ -440,6 +440,34 @@ body {
   opacity: 1;
   box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
 }
+
+/* TOP RATED MOVIES */
+
+.container-top-movies {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  padding-top: 2vh;
+  width: 100%;
+  flex-wrap: wrap;
+  padding-bottom: 5vh;
+}
+
+.container-top-movies img {
+  width: 100px;
+  height: 150px;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: box-shadow 0.3s ease;
+}
+
+.container-top-movies img:hover {
+  opacity: 1;
+  box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
+}
+
+
 
 /* SEARCH MOVIES */
 
