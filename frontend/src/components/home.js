@@ -12,6 +12,9 @@ function Home() {
   const [username, setUsername] = useState('');
   const [popularMovies, setPopularMovies] = useState([]);
   const [topratedMovies, setTopRatedMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
 
   useEffect(() => {
@@ -50,7 +53,6 @@ function Home() {
         const response = await fetch(`http://localhost:8001/api/popularmovies`);
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setPopularMovies(data.results);
         } else {
           console.error('Failed to fetch popular movies');
@@ -61,29 +63,46 @@ function Home() {
       }
     };
 
-    // Get top rated movies 
-    const fetchTopRatedMovies = async () => {
-      try {
-        const response = await fetch(`http://localhost:8001/api/topratedmovies`);
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setTopRatedMovies(data);
-        } else {
-          console.error('Failed to fetch top rated movies');
-          console.log(response);
-        }
-      } catch (error) {
-        console.error('Error fetching top rated movies:', error);
+    checkAuthStatus();
+    fetchPopularMovies();
+  }, []);
+
+
+   // Get top rated movies 
+   const fetchTopRatedMovies = async (page) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`http://localhost:8001/api/topratedmovies?page=${page}`);
+      const data = await response.json();
+      console.log(data);
+
+      if (data.length > 0) {
+        setTopRatedMovies(prevMovies => [...prevMovies, ...data]);
+      } else {
+        setHasMore(false); // Plus de films à charger
       }
+    } catch (error) {
+      console.error('Error fetching top rated movies:', error);
+    } finally {
+      setIsLoading(false);
     }
 
 
+  };
+  
+  const loadMoreMovies = () => {
+    setCurrentPage(prevPage => prevPage + 1);
+  };
+ 
 
-    checkAuthStatus();
-    fetchPopularMovies();
-    fetchTopRatedMovies();
-  }, []);
+
+  useEffect(() => {
+    fetchTopRatedMovies(currentPage);
+  }, [currentPage]);
+
+
+
+  
 
   return (
     <div className='app-home'>
@@ -133,6 +152,13 @@ function Home() {
   <p>No movies available</p>
 )}
       </div>
+      <div className='container-load-more'>
+      {hasMore && (
+        <button onClick={loadMoreMovies} disabled={isLoading} className="load-more-btn">
+          {isLoading ? 'Loading...' : 'Load More'}
+        </button>
+      )}
+          </div>
       </div>
 
 

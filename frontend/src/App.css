@@ -423,7 +423,7 @@ body {
   padding-top: 2vh;
   width: 100%;
   overflow-x: scroll;
-  padding-bottom: 5vh;
+  margin-bottom: 10vh;
 }
 
 .container-popular-movies img {
@@ -448,9 +448,9 @@ body {
   flex-direction: row;
   gap: 1.2vw;
   padding-top: 2vh;
+  padding-bottom: 1vh;
   width: 100%;
   flex-wrap: wrap;
-  padding-bottom: 5vh;
 }
 
 .container-top-movies img {
@@ -465,6 +465,31 @@ body {
 .container-top-movies img:hover {
   opacity: 1;
   box-shadow: 0 15px 20px rgba(152, 77, 237, 0.5);
+}
+
+
+.container-load-more {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10vh;
+}
+
+.load-more-btn {
+  background-color: #29282D;
+  color: #F2F2F2;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: 'Bold';
+  border: none;
+  cursor: pointer;
+  margin-top: 5vh;
+  width: 150px;
+  opacity: 0.9;
+}
+
+.load-more-btn:hover {
+  background-color: rgba(134, 45, 236, 0.676)
 }
 
 
