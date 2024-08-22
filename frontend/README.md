@@ -72,6 +72,24 @@ Application built with React for the frontend and Node.js with Express and MySQL
 
 ## API Endpoints 
 
+- /api/register => Enregistre un utilisateur
+- /api/login =>  Connecte un utilisateur si il est enregistré et si ses identifiants sont corrects 
+- /api/logout => Déconnecte l'utilisateur 
+- /api/checkauth => Vérifie sur l'utilisateur est bien authentifié 
+- /api/getusername => Récupère le nom de l'utilisateur connecté
+
+- /api/popularmovies => Récupère les films populaires avec l'api TMDB
+- /api/searchmovies => Recherche à partir d'une query
+- /api/moviedetails/:id => Récupère les détails d'un film avec son id avec l'api TMDB
+- /api/similarmovies/:id => Récupère les films similaires au film spécifié avec l'id (api TMDB)
+- /api/moviecredits/:id => Récupère les crédits d'un film avec son id avec l'api TMDB
+- /api/director/:id/movies => Récupère tous les films d'un réalisateur
+- /api/topratedmovies => Récupère les films les mieux notés via l'api TMDB
+
+
+
+
+
 
 --- 
 
