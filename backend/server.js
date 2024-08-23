@@ -347,7 +347,7 @@ app.get('/api/director/:id', async (req, res) => {
 
 app.get('/api/topratedmovies', async (req, res) => {
     const apiKey = process.env.TMDB_API_KEY;
-    const page = req.query.page || 1; // Récupère la page demandée, par défaut 1
+    const page = req.query.page || 1;
 
     try {
         const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}&language=en-EN&page=${page}`;

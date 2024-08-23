@@ -74,10 +74,15 @@ function Home() {
     try {
       const response = await fetch(`http://localhost:8001/api/topratedmovies?page=${page}`);
       const data = await response.json();
-      console.log(data);
-
+  
       if (data.length > 0) {
-        setTopRatedMovies(prevMovies => [...prevMovies, ...data]);
+        setTopRatedMovies(prevMovies => {
+          // Filtre les nouveaux films qui ne sont pas déjà présents
+          const newMovies = data.filter(newMovie => 
+            !prevMovies.some(movie => movie.id === newMovie.id)
+          );
+          return [...prevMovies, ...newMovies];
+        });
       } else {
         setHasMore(false); // Plus de films à charger
       }
@@ -86,8 +91,6 @@ function Home() {
     } finally {
       setIsLoading(false);
     }
-
-
   };
   
   const loadMoreMovies = () => {
