@@ -6,7 +6,7 @@ import Header from './components/header';
 import Details from './components/details';
 import Search from './components/search';
 import Real from './components/realisateur';
-
+import Dashboard from './components/dashboard';
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
       <Route path='/details' element={<Details/>} />
       <Route path='/search' element={<Search/>} />
       <Route path='/real' element={<Real/>} />
+      <Route path='/dashboard' element={<Dashboard/>} />
 
 
       </Routes>

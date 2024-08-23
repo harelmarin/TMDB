@@ -344,7 +344,7 @@ app.get('/api/director/:id', async (req, res) => {
 });
 
 
-
+// Get les top rateds movies
 app.get('/api/topratedmovies', async (req, res) => {
     const apiKey = process.env.TMDB_API_KEY;
     const page = req.query.page || 1;
@@ -368,19 +368,20 @@ app.get('/api/topratedmovies', async (req, res) => {
 app.get('/api/dashboard', authenticateToken, (req, res) => {
     const userId = req.user.id; // L'ID de l'utilisateur est maintenant disponible grâce au middleware
 
-    db.query('SELECT * FROM dashboard_data WHERE user_id = ?', [userId], (err, results) => {
+    db.query('SELECT * FROM watchlist WHERE user_id = ?', [userId], (err, results) => {
         if (err) {
-            console.error('Error fetching dashboard data:', err);
+            console.error('Error fetching watchlist data:', err);
             return res.status(500).send('Internal server error');
+            
         }
 
+        console.log(results);
         res.status(200).json({
-            message: 'Welcome to your dashboard!',
-            dashboardData: results
+            message: 'Here is your dashboard!',
+            watchlist: results
         });
     });
 });
-
 
 
 

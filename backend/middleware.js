@@ -1,19 +1,22 @@
 const jwt = require('jsonwebtoken');
 
 // Middleware pour vérifier l'authentification
-function authenticateToken(req, res, next) {
-    const token = req.cookies.token; // Récupérer le token JWT depuis les cookies
+const authenticateToken = (req, res, next) => {
+    const token = req.cookies.token;
 
-    if (!token) return res.status(401).send('Access Denied');
+    if (!token) {
+        return res.status(401).json({ message: 'Access Denied: No Token Provided!' });
+    }
 
-    // Vérifier le token JWT
-    jwt.verify(token, process.env.SESSION_SECRET, (err, user) => {
-        if (err) return res.status(403).send('Invalid Token');
-        req.user = user; // Stocker les informations décodées du token dans req.user
-        next(); // Passer à la route suivante
+    jwt.verify(token, process.env.SESSION_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ message: 'Access Denied: Invalid Token!' });
+        }
+
+        req.user = decoded; // Ajouter les informations décodées à la requête
+        next();
     });
-}
+};
 
 module.exports = authenticateToken;
-
 
