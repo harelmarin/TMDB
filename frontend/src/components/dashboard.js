@@ -48,12 +48,14 @@ function Dashboard() {
 
 
 
-
-
-
   return (
-    <div className='app-details'>
-        TEST
+    <div className='app-dashboard'>
+        <h3 className='title-similar'>Dashboard</h3>
+        <span className='border soixantedix'></span>
+
+        <div className='container-app-search'>
+
+        </div>
     </div>
   );
 }

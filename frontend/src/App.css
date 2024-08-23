@@ -791,3 +791,14 @@ flex-direction: row;
   margin-top: 2vh;
 
 }
+
+/* DASHBOARD */
+
+.app-dashboard {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  color: #F2F2F2;
+  margin-left: 15vw;
+}
+
