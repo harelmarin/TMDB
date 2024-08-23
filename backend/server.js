@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
+const authenticateToken = require('./middleware');
+
 require ('dotenv').config();
 
 const app = express();
@@ -155,7 +157,11 @@ app.get('/api/checkauth', (req, res) => {
         }
 
         // Si le token est valide, l'utilisateur est authentifié
-        res.status(200).send('Authenticated');
+        res.status(200).json({
+            message: 'Authenticated',
+            userId: decoded.id,
+            email: decoded.email,
+        });
     });
 });
 
@@ -177,6 +183,7 @@ app.get('/api/getusername', (req, res) => {
         // Utiliser l'ID de l'utilisateur stocké dans le token pour récupérer le nom d'utilisateur depuis la base de données
         const userId = decoded.id;
 
+
         db.query('SELECT username FROM users WHERE id = ?', [userId], (err, results) => {
             if (err) {
                 console.error('Error fetching username:', err);
@@ -189,6 +196,7 @@ app.get('/api/getusername', (req, res) => {
 
             // Envoyer le nom d'utilisateur
             res.status(200).send({ username: results[0].username });
+            
         });
     });
 });
@@ -198,7 +206,6 @@ app.get('/api/getusername', (req, res) => {
 app.get('/api/popularmovies', async (req, res) => {
 
         const apiKey = process.env.TMDB_API_KEY;
-        console.log("apik key :", apiKey);
         const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-EN&page=1`;
       
         try {
@@ -354,6 +361,26 @@ app.get('/api/topratedmovies', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch top rated movies' });
     }
 });
+
+
+
+// Route protégée pour le dashboard
+app.get('/api/dashboard', authenticateToken, (req, res) => {
+    const userId = req.user.id; // L'ID de l'utilisateur est maintenant disponible grâce au middleware
+
+    db.query('SELECT * FROM dashboard_data WHERE user_id = ?', [userId], (err, results) => {
+        if (err) {
+            console.error('Error fetching dashboard data:', err);
+            return res.status(500).send('Internal server error');
+        }
+
+        res.status(200).json({
+            message: 'Welcome to your dashboard!',
+            dashboardData: results
+        });
+    });
+});
+
 
 
 
