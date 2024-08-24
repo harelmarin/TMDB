@@ -16,6 +16,8 @@ function Details() {
     const [country, setCountry] = useState([]);
     const [originalTitle, setOriginalTitle] = useState('');
     const [directorId, setDirectorId] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState({});
     
     const navigate = useNavigate();
     
@@ -105,6 +107,68 @@ function Details() {
         }
     }
 
+
+    // Handle pour ajouter un film à la watchlist
+    const handleAddToWatchlist = async () => {
+        const posterUrl = `https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`;
+        try {
+            const response = await fetch(`http://localhost:8001/api/addtowatchlist`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    userId: user,
+                    movieId: movieDetails.id,
+                    posterUrl: posterUrl,
+                }),
+
+            });
+            if (response.ok) {
+                console.log('Movie added to watchlist');
+            } else {
+                console.error('Failed to add movie to watchlist');
+                console.log(response);
+            }
+
+        } catch (error) {
+            console.error('Error adding movie to watchlist:', error);
+        }
+    };
+
+
+        
+// Check if user is authenticated
+const checkAuthStatus = async () => {
+    try {
+        console.log('Sending request to check authentication');
+        
+        // Inclure credentials pour envoyer les cookies
+        const response = await fetch('http://localhost:8001/api/checkauth', {
+            method: 'GET',
+            credentials: 'include',
+        });
+
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+
+        if (response.ok) {
+            console.log('User is authenticated');
+            const data = await response.json();
+            setIsAuthenticated(true);
+            setUser(data)
+        } else {
+            console.log('User is not authenticated');
+            setIsAuthenticated(false);
+        }
+    } catch (error) {
+        console.error('Error checking auth status:', error);
+        setIsAuthenticated(false);
+    }
+};
+
+  
     
 
 
@@ -115,6 +179,7 @@ function Details() {
         fetchSimilarMovies();
         fetchMovieCredits();
         fetchMovieCast();
+        checkAuthStatus();
     }, []);
 
     // Fonction pour gérer le clic sur un film similaire
@@ -125,16 +190,15 @@ function Details() {
 
 
 
-
-
-
-
   return (
     <div className='app-details'>
     {movieDetails ? (
                 
                     <div key={movieDetails.id} className='movie-details'>
+                        <div className='img-add'>
                         <img src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`} alt={movieDetails.title} />
+                        <button onClick={(handleAddToWatchlist)}>Add to Watchlist </button>
+                        </div>
                         <div className='movie-details-info'>
                         <h2>{movieDetails.title}</h2>
 

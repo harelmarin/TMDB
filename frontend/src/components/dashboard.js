@@ -54,7 +54,7 @@ function Dashboard() {
         <span className='border soixantedix'></span>
 
         <div className='container-app-search'>
-
+            
         </div>
     </div>
   );

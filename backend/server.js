@@ -383,6 +383,21 @@ app.get('/api/dashboard', authenticateToken, (req, res) => {
     });
 });
 
+app.post('/api/addtowatchlist', authenticateToken, (req, res) => {
+    const { movieId, posterUrl } = req.body;
+    const userId = req.user.id;
+
+    const query = `INSERT INTO watchlist (user_id, movie_id, poster_url, added_at) VALUES (?, ?, ?, NOW())`;
+
+    db.query(query, [userId, movieId, posterUrl], (err, results) => {
+        if (err) {
+            console.error('Error adding to watchlist:', err);
+            return res.status(500).json({ message: 'Error adding to watchlist' });
+        }
+        res.status(200).json({ message: 'Movie added to watchlist' });
+    });
+});
+
 
 
 
