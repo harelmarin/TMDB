@@ -387,17 +387,32 @@ app.post('/api/addtowatchlist', authenticateToken, (req, res) => {
     const { movieId, posterUrl } = req.body;
     const userId = req.user.id;
 
-    const query = `INSERT INTO watchlist (user_id, movie_id, poster_path, added_at) VALUES (?, ?, ?, NOW())`;
+    // Vérifier si le film est déjà dans la watchlist
+    const checkQuery = `SELECT * FROM watchlist WHERE user_id = ? AND movie_id = ?`;
 
-    db.query(query, [userId, movieId, posterUrl], (err, results) => {
+    db.query(checkQuery, [userId, movieId], (err, results) => {
         if (err) {
-            console.error('Error adding to watchlist:', err);
-            return res.status(500).json({ message: 'Error adding to watchlist' });
+            console.error('Error checking watchlist:', err);
+            return res.status(500).json({ message: 'Error checking watchlist' });
         }
-        res.status(200).json({ message: 'Movie added to watchlist' });
+
+        if (results.length > 0) {
+            // Le film est déjà dans la watchlist
+            return res.status(409).json({ message: 'Movie already in watchlist' });
+        }
+
+        // Ajouter le film à la watchlist
+        const insertQuery = `INSERT INTO watchlist (user_id, movie_id, poster_path, added_at) VALUES (?, ?, ?, NOW())`;
+
+        db.query(insertQuery, [userId, movieId, posterUrl], (err, results) => {
+            if (err) {
+                console.error('Error adding to watchlist:', err);
+                return res.status(500).json({ message: 'Error adding to watchlist' });
+            }
+            res.status(200).json({ message: 'Movie added to watchlist' });
+        });
     });
 });
-
 
 
 

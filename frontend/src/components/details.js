@@ -125,17 +125,19 @@ function Details() {
                 }),
 
             });
-            if (response.ok) {
-                console.log('Movie added to watchlist');
-            } else {
-                console.error('Failed to add movie to watchlist');
-                console.log(response);
-            }
 
-        } catch (error) {
-            console.error('Error adding movie to watchlist:', error);
+        if (response.ok) {
+            alert('Movies added'); // Afficher le message à l'utilisateur
+        } else if (response.status === 409) {
+            alert('Movies already added to watchlist.'); 
+        } else {
+            alert('Failed to add movie to watchlist.');
         }
-    };
+    } catch (error) {
+        console.error('Error adding movie to watchlist:', error);
+        alert('An error occurred. Please try again.');
+    }
+};
 
 
         
