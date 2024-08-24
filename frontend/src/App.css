@@ -602,8 +602,8 @@ flex-direction: row;
   margin-bottom: 1vh;
   opacity: 0.8;
   cursor: pointer;
+  width: 100px;
 }
-
 .movie-details-info h5:hover {
   opacity: 1;
   color: rgba(134, 45, 236, 0.676);
@@ -823,5 +823,11 @@ flex-direction: row;
   margin-top: 10vh;
   color: #F2F2F2;
   margin-left: 15vw;
+}
+
+.no-results {
+  font-family: 'Regular';
+  font-size: 20px;
+  margin-top: 10vh;
 }
 
